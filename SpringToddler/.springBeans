@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.6.3.201411271034-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[true]]></enableImports>
+	<configs>
+		<config>src/main/webapp/WEB-INF/firstDispatcher-servlet.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-viewresolver.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/config/servlet-config.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-config.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-ibatis.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-properties.xml</config>
+	</configs>
+	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/secondDispatcher-servlet.xml</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

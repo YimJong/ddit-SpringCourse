@@ -1,0 +1,12 @@
+package kr.or.ddit.member.controller;
+
+import org.springframework.stereotype.Controller;
+
+// /SpringToddler/user/member/memberList.do
+// /SpringToddler/user/member/memberView.do
+// /SpringToddler/user/member/memberForm.do
+
+@Controller
+public class MemberController {
+
+}

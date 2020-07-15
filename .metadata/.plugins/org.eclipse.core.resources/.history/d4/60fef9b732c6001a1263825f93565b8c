@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+		
+	<!-- 루트 컨텍스트를 만드는 xml -->
+	<!-- 리스너로 이벤트 청취 후 Bean들이 모두 인스턴스화 됨. -->
+	
+	<bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/user/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<bean id="memberInfo" name="m1 m2 m3" class="kr.or.ddit.vo.MemberVO">
+<!-- 	<constructor-arg value="a001" name="mem_id"></constructor-arg> 선언 된 빈의 생성자를 통해 빈 생성 -->
+<!-- 	<constructor-arg value="김은대" name="mem_name"></constructor-arg> -->
+		<constructor-arg value="asdfasdf" index="2"></constructor-arg>
+		<constructor-arg value="a001" index="1"></constructor-arg> <!-- 선언 된 빈의 생성자를 통해 빈 생성-->
+		<constructor-arg value="김은대" index="3"></constructor-arg>
+	</bean>
+
+</beans>

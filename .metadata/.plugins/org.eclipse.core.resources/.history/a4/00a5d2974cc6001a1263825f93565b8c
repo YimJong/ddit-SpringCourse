@@ -1,0 +1,13 @@
+package kr.or.ddit.join.controller;
+
+import org.springframework.stereotype.Controller;
+
+// /SpringToddler/user/join/loginForm.do
+// /SpringToddler/user/join/loginCheck.do
+// /SpringToddler/user/join/loginOut.do
+@Controller
+public class JoinController {
+	
+	
+	
+}

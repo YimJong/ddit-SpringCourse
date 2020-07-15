@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<!-- 
+		서블릿 컨텍스트(DispatcherServlet) : 클라이언트의 요청을 처리하기 위해 선언된 DispatcherServlet.
+		                                WebApplicationContext가 할당
+		루트 컨택스트 : 서로 상이한 서블릿 컨텍스트 간에 공유되어야 하는 설정 및 자원의 공유를 위해 선언 활용
+				   WebApplicationContext 할당
+				   (리스너가 만들어줌)
+	 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:kr/or/ddit/spring/config/application-*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+		
+	<!-- 
+		스프링 프레임워크가 적용된 웹 애플리케이션 내에서 클라이언트의 요청을 처리하는 프론트 컨트롤러를 선언
+			1.스프링 프레임워크의 프론트 컨트롤러 선언 시 설정파일
+				1.1 default
+				    WEB-INF/servlet-name의 텍스트값 + '-servlet.xml'
+				    ex) WEB-INF/firstDispatcher-servlet.xml
+			2.프론트 컨트롤러(DispatcherServlet) - WebApplicationContext 생성 할당
+							                                  다수의 WebApplicationContext는 공유 안됨.
+	 -->
+	<servlet>
+		<servlet-name>firstDispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>firstDispatcher</servlet-name>
+		<url-pattern>*.first</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>secondDispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>secondDispatcher</servlet-name>
+		<url-pattern>*.second</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>

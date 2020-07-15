@@ -1,0 +1,38 @@
+package kr.or.ddit.join.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+// /SpringToddler/user/join/loginForm.do
+// /SpringToddler/user/join/loginCheck.do
+// /SpringToddler/user/join/loginOut.do
+@Controller
+@RequestMapping("/user/join/")
+public class JoinController {
+	@RequestMapping("loginForm")
+	public void loginForm() {
+		// 반환값 : join/loginForm
+		// InternalResourceViewResolver가 반환값을 취득
+		// prefix(/WEB-INF/views/user/)
+		// suffix(.jsp)
+		// /WEB-INF/views/user/join/loginForm.jsp 포워딩 처리
+		//return "user/join/loginForm";
+	}
+	
+	
+//	/SpringToddler/user/join/loginCheck.do
+//  POST 전송방식 : mem_id=a001&mem_pass=asdfasdf	
+	@RequestMapping("loginCheck")
+	public String loginCheck(String mem_id, String mem_pass) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("mem_id", mem_id);
+		params.put("mem_pass", mem_pass);
+		
+		return "";
+	}
+}
+
+

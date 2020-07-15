@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	
+	<!-- 
+		커맨드 컨트롤러 : 클라이언트의 요청을 실제 처리하는 자원
+					자격조건 - 설정파일 내 빈 등록 완료.
+					                해당 자원(커맨드 컨트롤러 클래스) 클래스 선언 상단부에 @Controller 선언 완료.
+					                 
+		bean : id - 다른 빈과 구분을 위해 선언 된 구분자(유니크).
+		       class - 해당 자원이 배치된 패키지명과 자원명
+	 -->
+	<bean id="firstController" class="kr.or.ddit.first.controller.FirstController"></bean>
+</beans>
