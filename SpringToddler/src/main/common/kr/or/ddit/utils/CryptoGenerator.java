@@ -19,11 +19,14 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CryptoGenerator {
 	// 암, 복호화 : 공개키 + 비밀키 (생성 시 동반 생성되야 함. 1회용임 이후 폐기)
 	// 반환값 : 공개키(가수부, 지수부 구분 저장 후 반환)
 	// 파라미터 : 비밀키 세션 저장
-	public static Map<String, String> generatePairKey(HttpSession session){ // 파라미터 : 세션
+	public Map<String, String> generatePairKey(HttpSession session){ // 파라미터 : 세션
 		// 공개키 + 비밀키 생성
 		KeyPairGenerator keyGenerator = null;  // 키 생성 자원
 		// 생성된 공개키 + 비밀키
@@ -76,7 +79,7 @@ public class CryptoGenerator {
 	
 	
 	// 암호문을 평문으로 복호화
-	public static String decryptRSA(HttpSession session, String secureValue) { // 암호키와 암호문을 매개변수로 줌
+	public String decryptRSA(HttpSession session, String secureValue) { // 암호키와 암호문을 매개변수로 줌
 		String returnValue = "";
 		PrivateKey privateKey = (PrivateKey)session.getAttribute("privateKey");
 		try {
@@ -106,7 +109,7 @@ public class CryptoGenerator {
 	}
 
 	// 암호문이 널이거나 짝수가 아니면 암호문이 암호화 이상.
-	private static byte[] hextoByteArray(String secureValue) {
+	private byte[] hextoByteArray(String secureValue) {
 		if(secureValue == null || secureValue.length() % 2 != 0) {
 			return new byte[]{};
 		}

@@ -12,22 +12,66 @@
 .btnGroup { text-align: right; }
 td {text-align: left; }
 </style>
-<script type='text/javascript' src='http://code.jquery.com/jquery-latest.js'> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-	function idCheck() {
-		$.ajax({
-			type : 'POST',
-			url : '${pageContext.request.contextPath}/user/member/idCheck.do',
-			dataType : 'json',
-			data : { mem_id : $('input[name=mem_id]').val()},
-			error : function(result) {
-				alert(result.status);
-			},
-			success : function(result) {
-				alert(result.flag);
-			},
-		});
-	};
+$(function(){
+   $('form[name=memberForm]').submit(function(){
+      $(this).attr('action', '<%=request.getContextPath()%>/09/insertMemberInfo.jsp');
+      
+      var regnos = $('input[name=mem_regno1]').val() + '-' +
+                   $('input[name=mem_regno1]').val();
+
+      var mem_bir = $('input[name=mem_bir1]').val() + '-' +
+                    $('input[name=mem_bir2]').val() + '-' +
+                    $('input[name=mem_bir3]').val();
+      $('input[name=mem_bir]').val(mem_bir);
+      
+      var mem_hometel = $('select[name=mem_hometel1]').val() + '-' +
+                        $('input[name=mem_hometel2]').val() + '-' +
+                        $('input[name=mem_hometel3]').val();
+      $('input[name=mem_hometel]').val(mem_hometel);
+
+      var mem_comtel = $('select[name=mem_comtel1]').val() + '-' +
+                        $('input[name=mem_comtel2]').val() + '-' +
+                        $('input[name=mem_comtel3]').val();
+      $('input[name=mem_comtel]').val(mem_comtel);
+      
+      var mem_hp = $('select[name=mem_hp1]').val() + '-' +
+                $('input[name=mem_hp2]').val() + '-' +
+                $('input[name=mem_hp3]').val();
+      $('input[name=mem_hp]').val(mem_hp);
+
+      var mem_mail = $('input[name=mem_mail1]').val() + '@' +
+                     $('select[name=mem_mail2]').val();
+      $('input[name=mem_mail]').val(mem_mail);
+      
+      var mem_zip = $('input[name=mem_zip1]').val() + '-' +
+                    $('input[name=mem_zip2]').val();
+      $('input[name=mem_zip]').val(mem_zip);
+      
+      return true;
+   });
+   
+   $('#btn3').click(function(){
+      $(location).attr('href', '<%=request.getContextPath()%>/09/main.jsp');
+   });
+});
+
+function idCheck(){
+   $.ajax({
+       type : 'POST'
+      ,url : '${pageContext.request.contextPath}/user/member/idCheck.do'
+      ,dataType : 'JSON'
+      ,data : { mem_id : $('input[name=mem_id]').val() }
+      ,error : function(result){
+               alert(result.status);
+               }
+      ,success : function(result){
+                  // { flag : true | false }
+                 alert(result.flag);
+               }
+   });
+}
 </script>
 <body>
 <form name="memberForm" method="post">
@@ -269,7 +313,7 @@ $(function(){
    });
    
    $('#btn3').click(function(){
-      $(location).attr('href', '<%=request.getContextPath()%>/09/main.jsp');
+      $(location).attr('href', '${pageContext.request.contextPath}/user/member/memberList.do');
    });
 });
 </script>

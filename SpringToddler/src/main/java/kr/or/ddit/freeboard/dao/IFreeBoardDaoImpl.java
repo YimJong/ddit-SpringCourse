@@ -77,6 +77,12 @@ public class IFreeBoardDaoImpl implements IFreeBoardDao{
 		return (String) client.queryForObject("freeboard.totalCount", params);
 	}
 
+	@Override
+	public String insertFreeboardTemp(FreeBoardVO freeboardInfo)
+			throws Exception {
+		return (String) client.insert("freeboard.insertFreeboardTemp", freeboardInfo);
+	}
+
 	
 	
 }

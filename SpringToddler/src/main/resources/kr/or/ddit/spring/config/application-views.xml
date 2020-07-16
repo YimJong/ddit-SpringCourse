@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+<!-- 
+	// View 클래스(빈 등록 후 활용) => View가 JSP가 아니라 Class가됨
+	// public class MappingJackson2JsonView extends AbstractView {
+	// 		ModelAndView에 저장된 데이터를 Json 데이터로 변경하고,
+	//      @ResponseBody 처리를 동반.
+	// }
+ -->
+ <bean id="jsonConvertView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+
+</beans>

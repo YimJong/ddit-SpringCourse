@@ -135,3 +135,5 @@
 0:0:0:0:0:0:0:1 - - [15/Jul/2020:15:48:30 +0900] "GET /SpringToddler/css/admin.css HTTP/1.1" 404 1005
 0:0:0:0:0:0:0:1 - - [15/Jul/2020:15:48:30 +0900] "GET /SpringToddler/js/common/validation.js HTTP/1.1" 404 1025
 0:0:0:0:0:0:0:1 - - [15/Jul/2020:15:48:30 +0900] "GET /SpringToddler/js/common/cookieControl.js HTTP/1.1" 404 1031
+127.0.0.1 - - [15/Jul/2020:16:02:30 +0900] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [15/Jul/2020:16:02:34 +0900] "GET /SpringToddler/user/member/memberView.jsp HTTP/1.1" 404 1031

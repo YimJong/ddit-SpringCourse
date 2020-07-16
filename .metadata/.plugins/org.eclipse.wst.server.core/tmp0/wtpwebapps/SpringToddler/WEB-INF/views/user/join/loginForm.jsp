@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<c:url var="registURI" value="/06/memberForm.jsp"></c:url>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<c:url var="registURI" value="/user/member/memberForm.do"></c:url>
 <%
 	String message = request.getParameter("message");
 %>
@@ -10,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin.css" type="text/css">
-<title>회원관리 관리자 로그인</title>
+<title><spring:message code="cop.memberMngr.login"></spring:message></title>
 <script type='text/javascript' src='http://code.jquery.com/jquery-latest.js'> </script>
 <script type='text/javascript' src='${pageContext.request.contextPath }/js/common/validation.js'> </script>
 <script type='text/javascript' src='${pageContext.request.contextPath }/js/common/cookieControl.js'></script> 
@@ -57,24 +58,24 @@
 							<table border="0" align="center" cellpadding="5"
 								cellspacing="0">
 								<tr>
-									<td><b>아이디</b></td>
+									<td><b><spring:message code="login.id"></spring:message></b></td>
 									<td><input type="text" name="mem_id" class="box" tabindex="3" height="18" /></td>
 									<td rowspan="2">
 										<img src="${pageContext.request.contextPath }/image/login.gif" class="loginBtn"/>
 									</td>
 								</tr>
 								<tr>
-									<td><b>패스워드</b></td>
+									<td><b><spring:message code="login.password"></spring:message></b></td>
 									<td><input type="password" name="mem_pass" class="box" tabindex="3" height="18" /></td>
 								</tr>
 								<tr>
 									<td colspan=2>
-									아이디 저장 : <input type='checkbox' name='saveID'>
+									<spring:message code="login.remember.id"></spring:message> : <input type='checkbox' name='saveID'>
 									<a href='<%=request.getContextPath()%>/06/memberForm.jsp'> </a>
 									</td>
 								</tr>
 								<tr>
-									<td colspan=2><a href='${registURI }'>회원가입을 원하세요?</a></td>
+									<td colspan=2><a href='${registURI }'><spring:message code="login.regist"></spring:message></a></td>
 								</tr>
 							</table>
 						</td>

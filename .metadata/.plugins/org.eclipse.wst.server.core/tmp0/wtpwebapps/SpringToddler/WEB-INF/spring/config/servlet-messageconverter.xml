@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	
+	<!-- 
+		@RequestBody - 클라이언트의 서버 대상 요청 시 전송되는 전체 쿼리스트링을 문자열 형태로 취득
+		               ex) mem_id=a001&mem_pass=asdfasdf&mem_name=dsadlkf;sladf
+		@ResponseBody - 컨트롤러 메서드의 반환값을 ViewResolver 대상 전달하지 않으며, 직접 클라이언트(브라우저, ajax엔진)에 전송
+						직접 json형태의 문자열을 반환할 수 있음
+		RedirectAttribute - 컨트롤러 메서드에서 다른 컨트롤러 메서드의 리다이렉트 응답 제어에 따른 호출 시 전달될 값을 POST전송인 것처럼 전송처리
+	 -->
+	 <mvc:annotation-driven></mvc:annotation-driven>
+
+</beans>

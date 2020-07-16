@@ -2,6 +2,7 @@ package kr.or.ddit.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 public class RolePaginationUtil {
 	
 	private int currentPage;   	   // 현재 페이지 (매개변수)

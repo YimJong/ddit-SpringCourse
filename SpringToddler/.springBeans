@@ -13,6 +13,11 @@
 		<config>src/main/resources/kr/or/ddit/spring/config/application-config.xml</config>
 		<config>src/main/resources/kr/or/ddit/spring/config/application-ibatis.xml</config>
 		<config>src/main/resources/kr/or/ddit/spring/config/application-properties.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-i18n.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/config/servlet-messageconverter.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-common.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-views.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/config/servlet-tiles.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/secondDispatcher-servlet.xml</config>

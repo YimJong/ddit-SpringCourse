@@ -160,4 +160,28 @@
 		 <include refid="searchCondition"/>
 	</select>
 	
+	
+	<insert id="insertFreeboardTemp" parameterClass="freeboardVO">
+		<selectKey keyProperty="bo_no" resultClass="String">
+			SELECT FREEBOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FREEBOARD (BO_NO,
+							   BO_TITLE,
+						   	   BO_WRITER,
+							   BO_NICKNAME,
+							   BO_PWD,
+							   BO_MAIL,
+							   BO_IP,
+							   BO_CONTENT,
+							   BO_GROUP) VALUES (#bo_no#,
+												 #bo_title#,
+												 #bo_writer#,
+												 #bo_nickname#,
+												 #bo_pwd#,
+												 #bo_mail#,
+												 #bo_ip#,
+												 #bo_content#,
+												 #bo_no#)
+	</insert>
+	
 </sqlMap>

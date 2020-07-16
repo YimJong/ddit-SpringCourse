@@ -18,62 +18,32 @@ public class IMemberServiceImpl implements IMemberService{
 	private IMemberDao dao;
 		
 	@Override
-	public MemberVO memberInfo(Map<String, String> parms) {
-		MemberVO memberInfo = null;
-		try {
-			memberInfo = dao.memberInfo(parms);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return memberInfo;
+	public MemberVO memberInfo(Map<String, String> parms) throws Exception {
+		return dao.memberInfo(parms);
 	}
 
 	@Override
-	public List<MemberVO> memberList(Map<String, String> params) {
-		List<MemberVO> memberList = null;
-		try {
-			memberList = dao.memberList(params);
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		return memberList;
+	public List<MemberVO> memberList(Map<String, String> params) throws Exception {
+			return dao.memberList(params);
 	}
 
 	@Override
-	public void deleteMemberInfo(Map<String, String> params) {
-		try{
+	public void deleteMemberInfo(Map<String, String> params) throws Exception{
 			dao.deleteMemberInfo(params);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
-	public void updateMemberInfo(MemberVO memberInfo) {
-		try {
+	public void updateMemberInfo(MemberVO memberInfo) throws Exception{
 			dao.updateMemberInfo(memberInfo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
-	public void insertMember(MemberVO memberInfo) {
-		try {
+	public void insertMember(MemberVO memberInfo) throws Exception {
 			dao.insertMember(memberInfo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
-	public String totalCount(Map<String, String> params) {
-		String totalCount = null;
-		try {
-			totalCount = dao.totalCount(params);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return totalCount;
+	public String totalCount(Map<String, String> params) throws Exception {
+			return dao.totalCount(params);
 	}
 }

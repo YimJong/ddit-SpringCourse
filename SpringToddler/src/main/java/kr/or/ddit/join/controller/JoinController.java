@@ -3,6 +3,7 @@ package kr.or.ddit.join.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +14,10 @@ import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.vo.MemberVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 // /SpringToddler/user/join/loginForm.do
 // /SpringToddler/user/join/loginCheck.do
@@ -24,15 +27,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class JoinController {
 	@Autowired
 	private IMemberService service;
+	@Autowired
+	private MessageSourceAccessor accessor;
 	
 	@RequestMapping("loginForm")
-	public void loginForm() {
+	public void loginForm(HttpServletRequest request) {
 		// 반환값 : join/loginForm
 		// InternalResourceViewResolver가 반환값을 취득
 		// prefix(/WEB-INF/views/user/)
 		// suffix(.jsp)
 		// /WEB-INF/views/user/join/loginForm.jsp 포워딩 처리
 		//return "user/join/loginForm";
+		
+		// RedirectAttribute를 활용해 전송되는 값 취득
+		Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
+		if(paramMap != null) {
+			String message = (String) paramMap.get("message");
+			System.out.println("RedirectAttribute 전달된 취득값 : " + message);
+		}
 	}
 	
 //	/SpringToddler/user/join/loginCheck.do
@@ -42,7 +54,8 @@ public class JoinController {
 							 String mem_pass, 
 							 HttpServletRequest request,
 							 HttpSession session,
-							 HttpServletResponse response) throws Exception {
+							 HttpServletResponse response,
+							 String message) throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("mem_id", mem_id);
 		params.put("mem_pass", mem_pass);
@@ -51,7 +64,8 @@ public class JoinController {
 		
 		if(memberInfo == null) {
 			// 리다이렉트(컨텍스트 루트|패스 생략)
-			String message = URLEncoder.encode("회원이 아닙니다.", "UTF-8");
+			message = this.accessor.getMessage("fail.common.join", Locale.KOREA);
+			message = URLEncoder.encode(message, "UTF-8");
 			return "redirect:/user/join/loginForm.do?message=" + message;
 		} else {
 			// 포워드(컨텍스트 루트|패스 생략)
@@ -64,7 +78,8 @@ public class JoinController {
 	public String logout(HttpSession session,
 						 String message) throws UnsupportedEncodingException {
 		session.invalidate();
-		message = URLEncoder.encode("로그아웃 되었습니다.", "UTF-8");
+		message = this.accessor.getMessage("success.common.logout", Locale.KOREA);
+		message = URLEncoder.encode(message, "UTF-8");
 		
 		return "redirect:loginForm.do?message=" + message;
 	}

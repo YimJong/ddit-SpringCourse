@@ -8,9 +8,27 @@
 	<!-- 루트 컨텍스트를 만드는 xml -->
 	<!-- 리스너로 이벤트 청취 후 Bean들이 모두 인스턴스화 됨. -->
 	
-	<bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/"></property>
-		<property name="suffix" value=".jsp"></property>
+	<bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/views/"
+		p:suffix=".jsp"
+		p:order="3">
+<!-- 		<property name="prefix" value="/WEB-INF/views/"></property> -->
+<!-- 		<property name="suffix" value=".jsp"></property> -->
+
+	</bean>
+	
+	
+	<!-- 
+		컨트롤러 메서드 반환값이 AbstractView를 상속받은 View 클래스의 빈 등록 시의 id 또는 name 속성 값일 때
+		해당 View 클래스에 접근
+	 -->
+	<bean name="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="2">
+	</bean>
+
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView"
+		p:order="1">
 	</bean>
 	
 <!-- 		public class InternalResourceViewResolver {

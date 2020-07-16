@@ -22,4 +22,6 @@ public interface IFreeBoardDao {
 	public void deleteFreeboard(Map<String, String> params) throws Exception;
 	
 	public String totalCount(Map<String, String> params) throws Exception;
+	
+	public String insertFreeboardTemp(FreeBoardVO freeboardInfo) throws Exception;
 }
