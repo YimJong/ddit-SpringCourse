@@ -225,3 +225,14 @@
 0:0:0:0:0:0:0:1 - - [16/Jul/2020:16:59:13 +0900] "GET /SpringToddler/user/freeboard/freeboardForm.do HTTP/1.1" 200 13563
 0:0:0:0:0:0:0:1 - - [16/Jul/2020:16:59:13 +0900] "GET /SpringToddler/fonts/glyphicons-halflings-regular.woff HTTP/1.1" 404 1057
 0:0:0:0:0:0:0:1 - - [16/Jul/2020:16:59:13 +0900] "GET /SpringToddler/fonts/glyphicons-halflings-regular.ttf HTTP/1.1" 404 1055
+127.0.0.1 - - [16/Jul/2020:17:23:45 +0900] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:23:50 +0900] "GET /SpringToddler/user/freeboard/freeboardForm.do HTTP/1.1" 200 14681
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:23:55 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 14953
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:25:17 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 15064
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:25:21 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 15064
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:26:01 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 15064
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:27:44 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 15070
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:27:47 +0900] "GET /SpringToddler/user/freeboard/freeboardForm.do HTTP/1.1" 200 14681
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:27:49 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 15070
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:27:50 +0900] "GET /SpringToddler/user/freeboard/freeboardForm.do HTTP/1.1" 200 14681
+0:0:0:0:0:0:0:1 - - [16/Jul/2020:17:27:52 +0900] "GET /SpringToddler/user/freeboard/freeboardList.do HTTP/1.1" 200 15070

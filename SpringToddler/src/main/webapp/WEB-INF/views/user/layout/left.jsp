@@ -14,14 +14,14 @@
 	<div class="sidebar-collapse menu-scroll">
 		<ul id="side-menu" class="nav">
 			<div class="clearfix"></div>
-			<li class="active">
+			<li>
 				<a href="#">
 					<i class="fa fa-tachometer fa-fw"><div class="icon-bg bg-orange"></div></i>
 					<span class="menu-title">공지사항</span>
 				</a>
 			</li>
-			<li>
-				<a href="#">
+			<li class="active">
+				<a href="${pageContext.request.contextPath }/user/freeboard/freeboardList.do">
 					<i class="fa fa-desktop fa-fw"><div class="icon-bg bg-pink"></div></i>
 					<span class="menu-title">자유게시판</span>
 				</a>

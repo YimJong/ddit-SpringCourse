@@ -9,5 +9,6 @@
 //com.springsource.config.ui.prefs.activePageIndex\:/SpringToddler/src/main/webapp/WEB-INF/secondDispatcher-servlet.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
 //com.springsource.config.ui.prefs.activePageIndex\:/SpringToddler/src/main/webapp/WEB-INF/spring/config/servlet-config.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
 //com.springsource.config.ui.prefs.activePageIndex\:/SpringToddler/src/main/webapp/WEB-INF/spring/config/servlet-messageconverter.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
+//com.springsource.config.ui.prefs.activePageIndex\:/SpringToddler/src/main/webapp/WEB-INF/spring/config/servlet-tiles.xml=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<activePage index\="0"/>
 com.springsource.config.ui.prefs.tabs.dialog=always
 eclipse.preferences.version=1

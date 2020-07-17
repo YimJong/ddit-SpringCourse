@@ -70,7 +70,7 @@ public class JoinController {
 		} else {
 			// 포워드(컨텍스트 루트|패스 생략)
 			session.setAttribute("LOGIN_MEMBERINFO", memberInfo);
-			return "forward:/user/member/memberList.do";
+			return "forward:/user/freeboard/freeboardList.do";
 		}
 	}
 	

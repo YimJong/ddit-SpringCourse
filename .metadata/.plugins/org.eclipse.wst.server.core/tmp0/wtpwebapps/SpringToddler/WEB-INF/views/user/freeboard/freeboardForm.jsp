@@ -68,6 +68,7 @@ $(function(){
 		<label class="control-label col-sm-2" for="bo_nickname">작성자 대화명:</label>
 		<div class="col-sm-10"> 
 			<input type="text" class="form-control" id="bo_nickname" name="bo_nickname" placeholder="대화명 입력...">
+			<input type="hidden" id="bo_writer" name="bo_writer" value="${LOGIN_MEMBERINFO.mem_id }">
 		</div>
 	</div>
 	<div class="form-group">

@@ -27,6 +27,49 @@ $(function(){
 			theme: 'monokai'
 		}
     });
+    
+    
+    // 초기값 설정
+    $('input[name=bo_title]').val('${freeboardInfo.bo_title}');
+    $('input[name=bo_nickname]').val('${freeboardInfo.bo_nickname}');
+    $('input[name=bo_pwd]').val('${freeboardInfo.bo_pwd}');
+    $('input[name=bo_mail]').val('${freeboardInfo.bo_mail}');
+    $('#bo_content').summernote('code', '${freeboardInfo.bo_content}');
+    
+    
+    // 글쓰기
+    $('#formBtn').on('click', function() {
+    	$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardForm.do');
+    });
+    
+    // 삭제
+	$('#deleteBtn').on('click', function() {
+		$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/deleteFreeboard.do?bo_no=${freeboardInfo.bo_no}');
+	});
+    
+    // 댓글
+    $('#replyBtn').on('click', function() {
+    	
+    	if(eval('${!empty LOGIN_MEMBERINFO}')) {
+	    	// /ddit/13/main.jsp?contentPage=/13/freeboard/freeboardReplyForm.jsp?rnum=${param.rnum}&bo_title=${freeboardInfo.bo_title}
+	    	// 한글 처리
+	    	const bo_title = '${freeboardInfo.bo_title}';
+	    	const queryString = '?rnum=${freeboardInfo.rnum}&bo_title=' + bo_title;
+	    	const parentInfo = '&bo_group=${freeboardInfo.bo_group}&bo_seq=${freeboardInfo.bo_seq}&bo_depth=${freeboardInfo.bo_depth}';
+	    	$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardReplyForm.do' + queryString + parentInfo);
+    	} else {
+    		BootstrapDialog.show({
+    		    title: '알림',
+    		    message: '로그인 후 작성이 가능합니다.'
+    		});
+    	}
+    });																				
+    
+    // 목록
+    $('#listBtn').on('click', function() {
+    	$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardList.do');
+    });
+    
 });
 </script>
 </head>
@@ -53,7 +96,7 @@ $(function(){
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_mail">메일:</label>
 		<div class="col-sm-10"> 
-			<input type="password" class="form-control" id="bo_mail" name="bo_mail" >
+			<input type="text" class="form-control" id="bo_mail" name="bo_mail" >
 		</div>
 	</div>
 	<div class="form-group">
@@ -98,10 +141,10 @@ $(function(){
 	</div>
 	<div class="form-group"> 
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="button" class="btn btn-success">글쓰기</button>
-			<button type="button" class="btn btn-danger">삭제</button>
-			<button type="button" class="btn btn-primary">답글</button>
-			<button type="button" class="btn btn-info">목록</button>
+			<button type="button" class="btn btn-success" id="formBtn">글쓰기</button>
+			<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
+			<button type="button" class="btn btn-primary" id="replyBtn">댓글</button>
+			<button type="button" class="btn btn-info" id="listBtn">목록</button>
 			<button type="submit" class="btn btn-default" style="float: right">수정</button>
 		</div>
 	</div>

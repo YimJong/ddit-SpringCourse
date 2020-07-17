@@ -11,7 +11,7 @@
 <div id="freeboardList_content">
 	<div class="panel panel-blue">
     	<div class="panel-heading">게시판 목록</div>
-		<table class="table table-bordered table-hover">
+		<table class="table table-bordered table-hover" id="freeboardTable">
 			<thead>
 				<tr>
 					<th scope="col" width="5%">No</th>
@@ -63,10 +63,19 @@ $(document).ready(function() {
 	if(eval('${!empty insertMessage}')) {
 		infoMsg('${insertMessage}');
 	}
+	if(eval('${!empty deleteMessage}')) {
+		infoMsg('${deleteMessage}');
+	}
 	
 	$('button[name=registBtn]').on('click', function() {
 		location.href = '${pageContext.request.contextPath}/user/freeboard/freeboardForm.do';
 	});
+	
+	$('#freeboardTable tr:gt(0)').on('click', function() {
+		const bo_no = $(this).find('td:eq(0) > input').val();
+		$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardView.do?bo_no=' + bo_no);
+	});
+	
 });
 
 function infoMsg(value) {

@@ -11,7 +11,7 @@
 	<bean name="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/views/"
 		p:suffix=".jsp"
-		p:order="3">
+		p:order="2">
 <!-- 		<property name="prefix" value="/WEB-INF/views/"></property> -->
 <!-- 		<property name="suffix" value=".jsp"></property> -->
 
@@ -23,12 +23,12 @@
 		해당 View 클래스에 접근
 	 -->
 	<bean name="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"
-		p:order="2">
+		p:order="1">
 	</bean>
 
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
 		p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView"
-		p:order="1">
+		p:order="0">
 	</bean>
 	
 <!-- 		public class InternalResourceViewResolver {
