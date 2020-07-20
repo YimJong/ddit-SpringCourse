@@ -130,7 +130,7 @@
 	<WatchedResource>WEB-INF/web.xml</WatchedResource>
 	<Resource auth="YimJ" driverClassName="oracle.jdbc.driver.OracleDriver" factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory" initialSize="10" maxActive="10" maxIdle="6" maxWait="-1" minIdle="3" name="jdbc/ddit" password="java" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="YimJ">
 	</Resource>
-</Context></Host>
+</Context><Context docBase="D:\temp\files" path="/files" reloadable="true"/></Host>
     </Engine>
   </Service>
 </Server>

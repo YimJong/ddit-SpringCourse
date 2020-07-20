@@ -1,0 +1,59 @@
+package kr.or.ddit.utils;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+
+import kr.or.ddit.global.GlobalConstant;
+import kr.or.ddit.vo.FileItemVO;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.view.AbstractView;
+
+// AbstarctView 상속
+@Component("fileDownloadView")
+public class FileDownloadViewClass extends AbstractView{
+	@Override
+	protected void renderMergedOutputModel(Map<String, Object> model,
+										   HttpServletRequest request, 
+										   HttpServletResponse response) throws Exception {
+		// 컨트롤러 클래스 ModelAndView.addObject("fileitemInfo", fileitemInfo)이 Map으로 주입.
+		FileItemVO fileitemInfo = (FileItemVO) model.get("fileitemInfo");
+		
+		// 저장된 파일에 접근(스트리밍 하는 곳)
+		File downloadFile = new File(GlobalConstant.FILE_PATH, fileitemInfo.getFile_save_name());
+		
+		// 다운로드 창에 출력할 유저가 업로드한 진짜 파일 이름
+		if(downloadFile.exists()) {  // 다운로드 파일이 존재 할 때만
+			String realName = URLEncoder.encode(fileitemInfo.getFile_name(), "UTF-8"); // 파일명이 한글일 수 있으므로 인코딩
+			
+			response.setHeader("Content-Disposition", "attachment;fileName=" + realName);
+			response.setContentType("application/octet-stream"); // 다른이름으로 저장.
+			response.setContentLength((int)downloadFile.length());
+			
+			// 실제 다운 받으려는 파일의 사이즈 만큼 버퍼 생성
+			byte[] buffer = new byte[(int)downloadFile.length()];
+			
+			                               // 읽은 걸 버퍼에 담음                           // 빨대 꽂고 파일 가져옴     // 파일 이름
+			BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(downloadFile));
+			
+			BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+			
+			int readCnt = 0;
+			while((readCnt = inputStream.read(buffer)) != -1) {
+				outputStream.write(buffer, 0, readCnt); // 0인덱스 부터 끝(readCnt)까지.
+			}
+			inputStream.close();
+			outputStream.close();
+		}
+	}
+}

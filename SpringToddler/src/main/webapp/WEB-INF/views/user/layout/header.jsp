@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>s
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,7 +106,7 @@
 				    <li>&nbsp;&nbsp;</li>
 				    <li class="dropdown">
 					    <label for="inputName" class="control-label text-yellow">패스워드 :</label>
-				        <input type="text" 	name="mem_pass" placeholder="패스워드를 입력해주세요." 
+				        <input type="password" 	name="mem_pass" placeholder="패스워드를 입력해주세요." 
 						   class="text-yellow" />
 					</li>
 					<li>&nbsp;</li>	

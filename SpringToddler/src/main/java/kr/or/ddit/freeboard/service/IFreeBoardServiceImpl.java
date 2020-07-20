@@ -14,6 +14,7 @@ import kr.or.ddit.vo.FreeBoardVO;
 import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service("freeboardService") // 빈 등록 시 이름이 바뀜
@@ -29,7 +30,7 @@ public class IFreeBoardServiceImpl implements IFreeBoardService{
 	}
 
 	@Override
-	public String insertFreeboard(FreeBoardVO freeboardInfo, FileItem[] items) throws Exception {
+	public String insertFreeboard(FreeBoardVO freeboardInfo, MultipartFile[] items) throws Exception {
 		String bo_no = dao.insertFreeboard(freeboardInfo);
 		
 		List<FileItemVO> fileItemList = AttachFileMapper.mapper(items, bo_no);

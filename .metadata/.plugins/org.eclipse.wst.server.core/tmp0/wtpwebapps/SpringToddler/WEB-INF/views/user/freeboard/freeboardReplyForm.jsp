@@ -33,7 +33,7 @@ $(function(){
 	 </div>
 </div>
 <hr />
-<form class="form-horizontal" role="form" action="" method="post">
+<form class="form-horizontal" role="form" action="${pageContext.request.contextPath }/user/freeboard/insertFreeboardReply.do?bo_seq=${freeboardInfo.bo_seq}&bo_depth=${freeboardInfo.bo_depth}&bo_group=${freeboardInfo.bo_group}" method="post">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_title">제목:</label>
 		<div class="col-sm-10">
@@ -44,6 +44,7 @@ $(function(){
 		<label class="control-label col-sm-2" for="bo_nickname">작성자 대화명:</label>
 		<div class="col-sm-10"> 
 			<input type="text" class="form-control" id="bo_nickname" name="bo_nickname" >
+			<input type="hidden" name="bo_writer" id="bo_writer" value="${LOGIN_MEMBERINFO.mem_id }">
 		</div>
 	</div>
 	<div class="form-group">
@@ -55,7 +56,7 @@ $(function(){
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_mail">메일:</label>
 		<div class="col-sm-10"> 
-			<input type="password" class="form-control" id="bo_mail" name="bo_mail" >
+			<input type="text" class="form-control" id="bo_mail" name="bo_mail" >
 		</div>
 	</div>
 	<div class="form-group">
@@ -66,11 +67,54 @@ $(function(){
 	</div>
 	<div class="form-group"> 
 		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-success" style="float: right;">답글등록</button>
-			<button type="button" class="btn btn-danger">취소</button>
-			<button type="button" class="btn btn-info">목록</button>
+			<button type="submit" class="btn btn-success" style="float: right;">댓글등록</button>
+			<button type="reset" class="btn btn-danger">취소</button>
+			<button type="button" class="btn btn-info" id="listBtn">목록</button>
 		</div>
 	</div>
 </form>
 </body>
+
+<script>
+	$(document).ready(function() {
+		$('#listBtn').on('click', function() {
+			$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardList.do');
+		});
+		
+		$('form').submit(function() {
+			const bo_title = $('input[name=bo_title]').val();
+			if(bo_title == "") {
+				infoMsg("제목을 입력하세요.");
+				return false;
+			}
+			
+			const bo_nickname = $('input[name=bo_nickname]').val();
+			if(bo_nickname == "") {
+				infoMsg('작성자 대화명을 입력해주세요.');
+				return false;
+			}
+			
+			const bo_pwd = $('input[name=bo_pwd]').val();
+			if(bo_pwd == "") {
+				infoMsg('게시글 비밀번호를 입력해주세요.');
+				return false;
+			}
+			
+			const bo_mail = $('input[name=bo_mail]').val();
+			if(bo_pwd == "") {
+				infoMsg('이메일을 입력해주세요.');
+				return false;
+			}
+			
+			return ture;
+		});
+	});
+	
+	function infoMsg(value) {
+		BootstrapDialog.show({
+		    title: '알림창',
+		    message: value
+		});
+	};
+</script>
 </html>

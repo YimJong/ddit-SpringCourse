@@ -3,12 +3,12 @@ package kr.or.ddit.fileitem.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.vo.FileItemVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-
-import kr.or.ddit.vo.FileItemVO;
 
 @Repository
 public class IFileItemDaoImpl implements IFileItemDao{

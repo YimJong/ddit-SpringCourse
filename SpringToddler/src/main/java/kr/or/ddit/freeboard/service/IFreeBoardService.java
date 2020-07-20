@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.fileupload.FileItem;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.vo.FreeBoardVO;
 
@@ -12,7 +13,7 @@ public interface IFreeBoardService {
 	public List<FreeBoardVO> freeboardList(Map<String, String> params) throws Exception;
 	
 	public String insertFreeboard(FreeBoardVO freeboardInfo,
-									FileItem[] items) throws Exception;
+									MultipartFile[] items) throws Exception;
 
 	public String insertFreeboardReply(FreeBoardVO freeboardInfo) throws Exception;
 

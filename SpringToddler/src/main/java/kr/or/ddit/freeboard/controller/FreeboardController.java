@@ -8,9 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.fileitem.dao.IFileItemDaoImpl;
 import kr.or.ddit.freeboard.service.IFreeBoardService;
 import kr.or.ddit.utils.CryptoGenerator;
 import kr.or.ddit.utils.RolePaginationUtil;
+import kr.or.ddit.vo.FileItemVO;
 import kr.or.ddit.vo.FreeBoardVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,21 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/user/freeboard/")
 public class FreeboardController {
 	@Autowired
-	private IFreeBoardService service;
+	private IFreeBoardService freeboardService;
+	@Autowired
+	private IFileItemDaoImpl fileitemService;
 	@Autowired
 	private CryptoGenerator cryptoGen;
 	@Autowired
@@ -39,7 +48,11 @@ public class FreeboardController {
 									  HttpSession session,
 									  String search_keyword,
 									  String search_keycode,
-									  String currentPage) throws Exception {
+									  String currentPage,
+									  String insertReplyMessage,
+									  @RequestHeader("User-Agent")/*취득하려는 헤더의 키값*/ String agent,
+									  @RequestHeader("Accept-Language") String language,
+									  @CookieValue("JSESSIONID") String sessionID) throws Exception {
 		Map<String, String> publicKeyMap = this.cryptoGen.generatePairKey(session);
 		
 		if(currentPage == null) {
@@ -48,7 +61,7 @@ public class FreeboardController {
 		
 		params.put("search_keyword", search_keyword);
 		params.put("search_keycode", search_keycode);
-		String totalCount = service.totalCount(params);
+		String totalCount = freeboardService.totalCount(params);
 		
 		RolePaginationUtil pagination = new RolePaginationUtil(request, 
 											Integer.parseInt(currentPage),
@@ -57,11 +70,12 @@ public class FreeboardController {
 		params.put("startCount", String.valueOf(pagination.getStartCount()));
 		params.put("endCount", String.valueOf(pagination.getEndCount()));
 		
-		List<FreeBoardVO> freeboardList = this.service.freeboardList(params);
+		List<FreeBoardVO> freeboardList = this.freeboardService.freeboardList(params);
 		
 		andView.addObject("freeboardList", freeboardList);
 		andView.addObject("publicKeyMap", publicKeyMap);
 		andView.addObject("paginationHtml", pagination.getPagingHtmls());
+		andView.addObject("insertReplyMessage", insertReplyMessage);
 		andView.setViewName("user/freeboard/freeboardList");
 		
 		return andView;
@@ -75,7 +89,7 @@ public class FreeboardController {
 	public String insertFreeboard(FreeBoardVO freeboardInfo,
 										ModelAndView andView,
 										String message) throws Throwable {
-		service.insertFreeboardTemp(freeboardInfo);
+		freeboardService.insertFreeboardTemp(freeboardInfo);
 		
 		message = accessor.getMessage("success.common.insert", Locale.KOREA);
 		message = URLEncoder.encode(message, "UTF-8");
@@ -85,17 +99,18 @@ public class FreeboardController {
 	
 	
 	@RequestMapping("freeboardView")
-	public Model freeboardView(String bo_no,
+	@ModelAttribute("freeboardInfo")
+	public FreeBoardVO freeboardView(String bo_no,
 							   Model model,
 							   Map<String, String> params,
 							   FreeBoardVO freeboardInfo) throws Exception {
 		
 		params.put("bo_no", bo_no);
-		freeboardInfo = service.freeboardInfo(params);
 		
-		model.addAttribute("freeboardInfo", freeboardInfo);
+		freeboardInfo = freeboardService.freeboardInfo(params);
 		
-		return model;
+//		model.addAttribute("freeboardInfo", freeboardInfo);
+		return freeboardInfo;
 	}
 	
 	
@@ -105,7 +120,7 @@ public class FreeboardController {
 										String message,
 										Map<String, String> params) throws Exception {
 		params.put("bo_no", bo_no);
-		service.deleteFreeboard(params);
+		freeboardService.deleteFreeboard(params);
 		
 		message = accessor.getMessage("success.common.delete", Locale.KOREA);
 		message = URLEncoder.encode(message, "UTF-8");
@@ -122,4 +137,44 @@ public class FreeboardController {
 		
 		return modelMap;
 	}
+	
+	
+	@RequestMapping("insertFreeboardReply")
+	public ModelAndView insertFreeboardReply(HttpServletRequest request,
+											 ModelAndView andView,
+											 String message,
+											 FreeBoardVO freeboardInfo) throws Exception {
+		freeboardService.insertFreeboardReply(freeboardInfo);
+		
+		message = "성공적으로 댓글을 등록했습니다.";
+		andView.addObject("insertReplyMessage", message);
+		andView.setViewName("redirect:/user/freeboard/freeboardList.do?insertReplyMessage=" + message);
+		
+		return andView;
+	}
+	
+	
+	@RequestMapping("insertFreeboardInfo")
+	public String insertFreeboardInfo(FreeBoardVO freeboardInfo,
+			                          @RequestParam("files") MultipartFile[] items) throws Exception {
+		this.freeboardService.insertFreeboard(freeboardInfo, items);
+		
+		return "redirect:/user/freeboard/freeboardList.do";
+	}
+	
+	
+	@RequestMapping("fileDownload")
+	public ModelAndView fileDownload(String file_seq,
+									 Map<String, String> params,
+									 ModelAndView andView) throws Exception {
+		params.put("file_seq", file_seq);
+		
+		FileItemVO fileitemInfo = this.fileitemService.fileitemInfo(params);
+		
+		andView.addObject("fileitemInfo", fileitemInfo);
+		andView.setViewName("fileDownloadView"); // fileDownloadView 라는 이름으로 빈을 등록해서 사용. View클래스를 만들어야 함.
+		
+		return andView;
+	}
+	
 }

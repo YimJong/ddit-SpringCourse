@@ -18,20 +18,29 @@
 			      ▶ 반환타입 : void - 클라이언트 요청 시 서블릿 패스를 기준으로 ViewResolver에 전달 될 값이 추출되어 전달 됨.	
 			      	   String - View를 결정하기 위한 문자열을 ViewResolver에 전달.	
 			      	   Model - 클라이언트 요청 시 서블릿 패스를 기준으로 ViewResolver에 전달 될 값이 추출되어 활용
-			      	           View 대상 전달 될 데이터를 설정하고 포워딩 처리를 통해 전달. void + request.setAttribute
-			      ▶파라미터 타입 : 지역변수 - 클라이언트로부터 전송되는 쿼리스트링의 키와 일치하는 변수명			               
-			               HttpServletRequest - DI
-			               HttpServletResponse - DI
-			               HttpSession - DI
-			               Map - DI
-			               Model - DI  
-			               @RequestParam - value = 클라이언트 요청 시 쿼리스트링의 키와 주입대상 파라미터 명이 상이할 때 활용
+			      	           View 대상 전달 될 데이터를 설정하고 포워딩 처리를 통해 전달. void + request.setAttribute (인터페이스)
+			      	   ModelMap - 클라이언트 요청 시 서블릿 패스를 기준으로 ViewResolver에 전달 될 값이 추출되어 활용
+			      	              View 대상 전달 될 데이터를 설정하고 포워딩 처리를 통해 전달. void + request.setAttribute (인터페이스 Model의 구현 클래스)
+			           ModelAndView - 뷰 대상 전달될 데이터 설정 및 뷰의 패스와 명을 설정(그 외 redirect 또는 forward 가능)
+			           @ModelAttribute("View에서 EL접근을 위한 키") - 컨트롤러 메서드의 반환값(VO)로 선언하고, 컨트롤러 메서드의 해당 VO가 파라미터 선언 시
+			                                                                                                      해당 VO를 Model.addAttribute("키", VO) 자동 설정 처리 
+			                                                                                                      
+			      ▶ 파라미터 타입 : 지역변수 - 클라이언트로부터 전송되는 쿼리스트링의 키와 일치하는 변수명			               
+			                HttpServletRequest - DI
+			                HttpServletResponse - DI
+			                HttpSession - DI
+			                Map - DI
+			                Model - DI  
+			                @RequestParam - value = 클라이언트 요청 시 쿼리스트링의 키와 주입대상 파라미터 명이 상이할 때 활용
 			                               required = 필수 주입
 			                                          default true : 주입이 불가능 하면 에러 발생
 			                                          false : 주입 값이 존재하지 않아도 에러가 발생하지 않음.
 			                                                                                                    주입값이 존재하면 주입 처리.
 													  defaultValue : 주입값이 존재하지 않을 때 파라미터 대상 널 대체 주입값 설정 
 						   @PathVariable - 클라이언트 요청 시 서블릿 패스 내 의미있는 값을 취득
+						   @RequestHeader - 클라이언트 요청 시 요청 헤더의 특정 키를 통해 요청 헤더의 값을 취득
+						   @CookieValue - 클라이언트 요청 시 전송되는 특정 쿠키의 키를 통해 해당 쿠키의 값을 취득
+						   
 		bean : id - 다른 빈과 구분을 위해 선언 된 구분자(유니크).
 			   name - 1. 단독 선언 시 id속성과 동일한 의미가 부여
 			          2. id속성과 동반 선언되면 해당 id의 별명으로 활용

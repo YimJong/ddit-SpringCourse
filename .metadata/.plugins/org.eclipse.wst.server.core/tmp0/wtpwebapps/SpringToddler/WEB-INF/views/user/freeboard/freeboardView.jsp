@@ -1,5 +1,6 @@
 <%@ page language="JAVA" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +35,7 @@ $(function(){
     $('input[name=bo_nickname]').val('${freeboardInfo.bo_nickname}');
     $('input[name=bo_pwd]').val('${freeboardInfo.bo_pwd}');
     $('input[name=bo_mail]').val('${freeboardInfo.bo_mail}');
-    $('#bo_content').summernote('code', '${freeboardInfo.bo_content}');
+    $('#bo_content > p').summernote('code', '${freeboardInfo.bo_content}');
     
     
     // 글쓰기
@@ -54,7 +55,7 @@ $(function(){
 	    	// /ddit/13/main.jsp?contentPage=/13/freeboard/freeboardReplyForm.jsp?rnum=${param.rnum}&bo_title=${freeboardInfo.bo_title}
 	    	// 한글 처리
 	    	const bo_title = '${freeboardInfo.bo_title}';
-	    	const queryString = '?rnum=${freeboardInfo.rnum}&bo_title=' + bo_title;
+	    	const queryString = '?bo_title=' + bo_title;
 	    	const parentInfo = '&bo_group=${freeboardInfo.bo_group}&bo_seq=${freeboardInfo.bo_seq}&bo_depth=${freeboardInfo.bo_depth}';
 	    	$(location).attr('href', '${pageContext.request.contextPath}/user/freeboard/freeboardReplyForm.do' + queryString + parentInfo);
     	} else {
@@ -118,21 +119,17 @@ $(function(){
 	
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox" style="height: 200px;">
-				<div class="item active">
-					<img src="./images/thumbs/arch-1.jpg" alt="pic1">
-				</div>
-		
-				<div class="item">
-					<img src="./images/thumbs/arch-2.jpg" alt="pic2">
-				</div>
-		
-				<div class="item">
-					<img src="./images/thumbs/autumn-1.jpg" alt="pic3">
-				</div>
-		
-				<div class="item">
-					<img src="./images/thumbs/boats-1.jpg" alt="pic4">
-				</div>
+				<c:forEach items="${freeboardInfo.items }" var="freeboardInfo" varStatus="stat">
+					<c:if test="${stat.first }">
+              			 <div class="item active">
+		            </c:if>
+		            <c:if test="${stat.last }">
+		               <div class="item">
+		            </c:if>
+						<img src="/files/${freeboardInfo.file_save_name }" alt="pic1"
+							onclick="javascript:location.href='${pageContext.request.contextPath}/user/freeboard/fileDownload.do?file_seq=${freeboardInfo.file_seq }'">
+					</div>
+				</c:forEach>
 			</div>
 			<!-- Left and right controls -->
 			<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>

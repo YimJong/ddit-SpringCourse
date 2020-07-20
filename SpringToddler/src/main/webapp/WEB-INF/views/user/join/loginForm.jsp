@@ -16,15 +16,15 @@
 <script type='text/javascript' src='${pageContext.request.contextPath }/js/common/validation.js'> </script>
 <script type='text/javascript' src='${pageContext.request.contextPath }/js/common/cookieControl.js'></script> 
 <script type='text/javascript'>
-	$(function() {
+	$(document).ready(function() {
 	 	if(eval('${!empty param.message}')){
 	        alert('${param.message}');
 	    }
 		
 	 	
 	 	$('.loginBtn').on("click", function() {
-	 		const mem_id = $('input[name=mem_id]').val();
-	 		const mem_pass = $('input[name=mem_pass]').val();
+	 		var mem_id = $('input[name=mem_id]').val();
+	 		var mem_pass = $('input[name=mem_pass]').val();
 	 		
 	 		const $form = $("<form action='${pageContext.request.contextPath}/user/join/loginCheck.do' method='post'> ");
 			const $input_Id = $("<input type='hidden' name='mem_id' value=" + mem_id + ">");

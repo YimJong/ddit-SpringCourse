@@ -66,9 +66,17 @@ $(document).ready(function() {
 	if(eval('${!empty deleteMessage}')) {
 		infoMsg('${deleteMessage}');
 	}
+	if(eval('${!empty insertReplyMessage}')) {
+		infoMsg('${insertReplyMessage}');
+	}
 	
 	$('button[name=registBtn]').on('click', function() {
-		location.href = '${pageContext.request.contextPath}/user/freeboard/freeboardForm.do';
+		if(eval('${empty LOGIN_MEMBERINFO}')) {
+			infoMsg('로그인 후 등록할 수 있습니다.');
+		} else {
+			location.href = '${pageContext.request.contextPath}/user/freeboard/freeboardForm.do';	
+		}
+		
 	});
 	
 	$('#freeboardTable tr:gt(0)').on('click', function() {

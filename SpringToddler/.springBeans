@@ -18,6 +18,7 @@
 		<config>src/main/resources/kr/or/ddit/spring/config/application-common.xml</config>
 		<config>src/main/resources/kr/or/ddit/spring/config/application-views.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/config/servlet-tiles.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-file.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/secondDispatcher-servlet.xml</config>

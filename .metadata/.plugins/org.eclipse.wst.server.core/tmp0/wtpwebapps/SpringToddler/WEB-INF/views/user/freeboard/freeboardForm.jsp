@@ -57,7 +57,8 @@ $(function(){
 </head>
 <body>
 <form class="form-horizontal" id="freeboardForm" role="form" 
-			action="${pageContext.request.contextPath }/user/freeboard/insertFreeboard.do" method="post">
+			action="${pageContext.request.contextPath }/user/freeboard/insertFreeboardInfo.do" 
+			method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="bo_title">제목:</label>
 		<div class="col-sm-10">
@@ -90,15 +91,15 @@ $(function(){
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="file01">첨부파일1:</label>
+		<label class="control-label col-sm-2" for="file">첨부파일1:</label>
 		<div class="col-sm-10">
-			 <input type="file" class="filestyle" id="file01" name="file01" data-buttonName="btn-primary">
+			 <input type="file" class="filestyle" id="file" name="files" data-buttonName="btn-primary">
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="file02">첨부파일2:</label>
+		<label class="control-label col-sm-2" for="file">첨부파일2:</label>
 		<div class="col-sm-10">
-			 <input type="file" class="filestyle" id="file02" name="file02" data-buttonName="btn-primary">
+			 <input type="file" class="filestyle" id="file" name="files" data-buttonName="btn-primary">
 		</div>
 	</div>
 	<div class="form-group"> 
@@ -136,7 +137,7 @@ $(function(){
 			if(bo_pwd == "") {
 				infoMsg('이메일을 입력해주세요.');
 				return false;
-			}s
+			}
 			
 			return true;
 		});
