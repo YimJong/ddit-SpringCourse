@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		mvc 네임스페이스 필요.
+		
+		/user/*/*.do : /user/join/loginForm.do 스타일 맵핑 (o)
+		               /user/join/member/loginForm.do (x)
+		/user/**/*.do : /user/join/loginForm.do 스타일 맵핑 (o)
+		                /user/join/member/loginForm.do (o)
+		/user/**/* : 확장자 구분되지 않음.
+	 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**/*.do"/>
+			<bean class="kr.or.ddit.utils.EncodingInterceptor"></bean>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**/*.do"/>
+			<bean class="kr.or.ddit.utils.IPCheckInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+</beans>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+        <comment>users</comment>
+        <entry key="admin">java,ROLE_ADMIN,ROLE_USER</entry>
+        <entry key="a001">asdfasdf,ROLE_USER</entry>
+</properties>

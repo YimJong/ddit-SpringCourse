@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		mvc 네임스페이스 필요.
+		
+		/user/*/*.do : /user/join/loginForm.do 스타일 맵핑 (o)
+		               /user/join/member/loginForm.do (x)
+		/user/**/*.do : /user/join/loginForm.do 스타일 맵핑 (o)
+		                /user/join/member/loginForm.do (o)
+		/user/**/* : 확장자 구분되지 않음.
+		
+		클라이언트 요청 : 1. EncodingInterceptor.preHandle() 콜백
+					2. IpCheckInterceptor.prehandle() 콜백
+					3. 컨트롤러 클래스 내 클라이언트의 해당 요청을 처리하는 컨트롤러 메서드 콜백
+					4. IPcheckInterceptor.postHandle() 콜백
+					5. EncodingInterceptor.postHandle() 콜백
+					6. IPcheckInterceptor.afterCompletion() 콜백
+					7. EncodingInterceptor.afterCompletion() 콜백
+					8. 응답 컨텐츠가 클라이언트 대상으로 전송
+	 -->			
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**/*.do"/>
+			<bean class="kr.or.ddit.utils.EncodingInterceptor"></bean>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**/*.do"/>
+			<bean class="kr.or.ddit.utils.IPCheckInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+</beans>

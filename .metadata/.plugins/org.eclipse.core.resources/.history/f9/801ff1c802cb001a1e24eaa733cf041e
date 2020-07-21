@@ -1,0 +1,44 @@
+package kr.or.ddit.globalexception;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+
+import com.ibatis.common.jdbc.SimpleDataSource;
+
+public class CustomExceptionResolver extends SimpleMappingExceptionResolver {
+
+	@Override
+	public ModelAndView resolveException(HttpServletRequest request,
+			 							 HttpServletResponse response, 
+			 							 Object handler, 
+			 							 Exception ex) { // 예외가 발생하면 ex에 주입해줌
+		// 클라이언트 서버 대상 요청 시 서버 내 경량화 된 쓰레드 생성(응답 전송 시 GC)
+		String currentThread = Thread.currentThread().getName();
+		
+		// Exception발생 메서드와 해당 메서드를 포함하는 클래스 명 추출
+		HandlerMethod handlerMethod = (HandlerMethod)handler;
+		String exceptionOccuredClass = handlerMethod.getBean().getClass().getName();
+		String exceptionOccuredMethod = handlerMethod.getMethod().getName();
+		int lineNumber = ex.getStackTrace()[0].getLineNumber(); // 최초 Exception이 발생 된 라인.
+		String exceptionType = ex.getClass().getName();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY/MM/DD kk:mm:ss");
+		System.out.println("에러발생 : " + currentThread
+						  + " | 클래스 : " + exceptionOccuredClass
+						  + " | 메서드 : " + exceptionOccuredMethod
+						  + " | 라인 : " + lineNumber
+						  + " | 예외 타입 : " + exceptionType
+						  + " | 발생시간 : " + dateFormat.format(new Date()));
+		
+		return super.resolveException(request, response, handler, ex);
+	}
+
+}

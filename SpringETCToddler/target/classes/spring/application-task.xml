@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+
+	<!-- xml 기반 Task 선언 -->
+	<!-- ThreadPoolTaskScheduler의 인스턴스 생성.
+	     task:scheduler : id - 스케줄러 스레드 풀내에서의 개별 스레드명 명명시의 접두사로 활용됨.
+	                      pool-size - 스케줄러 스레드 풀 구성 스레드 갯수.
+	                                  생략시 단일 스케줄러 스레드.
+	 -->
+	<bean id="xmlBaseTaskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"
+		p:poolSize="10">
+	</bean> 
+<!-- <task:scheduler id="xmlBaseTaskScheduler" pool-size="10"/> -->
+	
+	<!-- ThreadPoolTaskExecutor의 인스턴스 생성
+	     task:executor : id - Executor 스레드 풀내에서의 개별 스레드명 명명시의 접두사로 활용됨.
+	                     pool-size - Executor 스레드 풀 구성 스레드 갯수.
+	                                 Min-Max 범위 지정.
+	                                 액티브 스레드가 corePoolSize보다 적을때 휴먼 스레드 활용.
+	                     queue-capacity - 처리 Task 저장을위한 큐의 사이즈.
+	                                      큐 사이즈를 넘어선 처리 Task는 새로운 스레드를 추가 또는 무시.
+	                     rejection-policy - 스레드 풀과 큐의 사이즈 제한 유지와 부하제거
+	 -->
+	<bean id="xmlBaseTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
+		p:corePoolSize="5"
+		p:maxPoolSize="10"
+		p:queueCapacity="50">
+	</bean>
+<!-- <task:executor id="xmlBaseTaskExecutor" pool-size="5-10" queue-capacity="50" rejection-policy="CALLER_RUNS"/> -->
+	
+	<!-- 어노테이션 기반 Task 선언. @Scheduled
+	     주의사항 : <task:scheduler id 속성값은 taskScheduler로 고정
+	                <task:executor  id 속성값은 taskExecutor로 고정
+	 -->
+<!-- 	<task:scheduler id="taskScheduler" pool-size="10"/> -->
+<!-- 	<task:executor id="taskExecutor" pool-size="5-10" queue-capacity="50" rejection-policy="CALLER_RUNS"/> -->
+<!-- 	<task:annotation-driven executor="taskExecutor" scheduler="taskScheduler"/> -->
+</beans>

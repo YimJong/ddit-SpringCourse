@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<security:http pattern="/**/*.js" security="none"></security:http>
+	<security:http pattern="/**/*.css" security="none"></security:http>
+	<security:http pattern="/upload/*" security="none"></security:http>
+	<security:http pattern="/lprod/**" security="none"></security:http>
+	
+	<!-- 테스트 순서 : 1)스프링 시큐리티의 가상 url /spring_security_login 폼을 활용한 로그인 처리.
+	                     인가된 사용자 선언은 Authentication-manager를 통해 설정.
+	                     http://localhost/security/join/loginForm.do 요청 ->  http://localhost//spring_security_login 폼
+	                                                                              => id : a001 / pwd : asfdasdf 입력시
+	                                                                                    => loginForm.do 요청됨
+	                                                                              => 기타 id/pwd 입력시
+	                                                                                    => http://localhost//spring_security_login로
+	                                                                                       롤백
+	 -->
+<!-- 	<security:http auto-config="true" use-expressions="true"> -->
+<!-- 		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/> -->
+<!-- 		<security:intercept-url pattern="/member/**" access="hasRole('ROLE_USER')"/> -->
+<!-- 		<security:intercept-url pattern="/security/join/*.do" access="hasRole('ROLE_USER')"/> -->
+<!-- 		<security:intercept-url pattern="/public/**" access="permitAll"/> -->
+<!-- 		<security:intercept-url pattern="/**" access="permitAll"/> -->
+<!-- 	</security:http> -->
+
+	<!-- 테스트 순서 : 2) 1. 사용자 로그인 폼을 선언
+	                         authentication-manager-ref="baseRoleAuth"
+	                      2. 로그인/로그아웃 처리
+	                      3. login
+	                        	authentication-success-handler-ref 활용
+	                       		authentication-failure-handler-ref
+	                         logout
+	                       	 	success-handler-ref 
+	                      4. pattern="/member/**.do" access="hasRole('ROLE_USER')"를
+	                         pattern="/member/**.do" access="hasRole('ROLE_ADMIN')"으로 변경 후
+	                         access-denied-handler ref 처리로 미권한 사용자 403 에러 처리
+	     authentication-manager의 user에 선언된 name과 password를 가진 유저의 권한에 맞는 로그인에따른
+	     처리
+     	   - 인가된 사용자의 로그인시 login-processing-url="/security/join/loginCheck.do" 설정에의해 요청되고,
+     	     해당 컨트롤러 메서드 처리 후 default-target-url="/member/memberList.do" 요청이 처리됨.
+     	     (/security/join/loginCheck.do 맵핑 컨트롤러 메서드에서 뷰를 결정하지 않음.)
+	       - 비인가된 사용자의 로그인시 authentication-failure-url="/security/join/loginForm.do?flag=false"를통해
+	         해당 컨드롤러 메서드에 접근 불가 및 authentication-failure-url 처리
+	       - /security/join/loginForm.do를통한 ROLE_USER 권한과 인가된 사용자의 로그인시 
+	                -> default-target-url="/member/memberList.do의 1) ROLE권한이 hasRole('ROLE_USER')의 경우 정상 처리.
+	                                                               2) ROLE권한이 hasRole('ROLE_ADMIN')의 경우 loginForm.do
+	                                                                  요청시의 권한과 상이하므로 
+	                                                                  HTTP Status 403 - Access is denied 발생됨
+	 -->
+	<security:http auto-config="true" use-expressions="true" create-session="never" 
+		authentication-manager-ref="cryptoRoleAuth">
+		<security:intercept-url pattern="/admin/**.do" access="hasAuthority('ROLE_ADMIN')"/>
+<!-- 		<security:intercept-url pattern="/member/**.do" access="hasRole('ROLE_ADMIN')"/> -->
+		<security:intercept-url pattern="/member/**.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/security/**.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/public/**" access="permitAll"/>
+		<security:intercept-url pattern="/**.do" access="permitAll"/>
+		<security:form-login login-page="/security/join/loginForm.do" 
+			username-parameter="mem_id" 
+			password-parameter="mem_pass"
+			login-processing-url="/security/join/loginCheck.do"
+			default-target-url="/member/memberList.do"
+			authentication-failure-url="/security/join/loginForm.do?flag=false"
+			always-use-default-target="true"/>
+<!-- 			authentication-success-handler-ref="loginSuccessHandler" -->
+<!-- 			authentication-failure-handler-ref="loginFailureHandler"/> -->
+		<security:logout logout-url="/security/join/logout.do"
+			invalidate-session="true"
+			logout-success-url="/security/join/loginForm.do"/>
+<!-- 		    success-handler-ref="logoutSuccessHandler"/> -->
+<!-- 		<security:access-denied-handler ref="customAccessDeniedHandler"/> -->
+
+		<!-- 테스트 순서 : 3) 1. 세션 갯수 및 중복 로그인 방지
+		                         중복 로그인시 최종 세션만 존재.
+		                         * 서로 다른 세션의 브라우져로 로그인 테스트 수행
+		                      2. 세션 생성 및 만료시 WAS로부터 전파되는 HttpSession관련 이벤트의 청취자를
+		                         스프링 빈으로 설정하기위해 web.xml내 HttpSessionEventPublisher listener을 등록.   
+		 -->
+		<security:session-management invalid-session-url="/security/join/sessionInvalid.do">
+			<security:concurrency-control max-sessions="1" 
+										  error-if-maximum-exceeded="true"
+										  expired-url="/security/join/sessionExpired.do"/>
+		</security:session-management>
+	</security:http>
+	
+	<security:authentication-manager id="baseRoleAuth">
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="admin" password="java" authorities="ROLE_ADMIN,ROLE_USER" />
+				<security:user name="a001" password="asdfasdf" authorities="ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- 테스트 순서 : 4) 사용자 정의 인증 처리 및 인증정보 제공자
+	                      authentication-manager-ref="propertyAuth"으로 변경 처리.
+	  -->
+	<security:authentication-manager id="propertyAuth">
+		<security:authentication-provider>
+			<security:user-service properties="classpath:kr/or/ddit/security/property/userAuthority.xml"></security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- 테스트 순서 : 5) 사용자 정의 인증 처리 및 인증정보 제공자
+	                      authentication-manager-ref="customRoleAuth"으로 변경 처리.
+	                      kr.or.ddit.security.provider.CustomAuthenticationProvider
+	  -->
+	<security:authentication-manager id="customRoleAuth">
+		<security:authentication-provider ref="customAuthenticationProvider"></security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- 테스트 순서 : 6) 사용자 정보 암호화 처리
+						  authentication-manager-ref="cryptoRoleAuth"으로 변경 처리.
+	                      kr.or.ddit.security.service.CustomCryptoAuthenticationService
+	                      kr.or.ddit.security.encode.CustomPasswordEncoder
+	
+	                      암호화 및 암호문과 평문의 비교결과를 반환하는 BCryptPasswordEncoder 빈등록
+	                      * 보다 정교한 암호화 처리를위해서는 StandardPasswordEncoder활용
+	                      
+	                          PasswordEncoder 암호화 및 원 값과 암호화 값 비교 결과 반환
+						                      패스워드 암호화 시점에 salt를 랜덤하게 생성하여 암호화 수행
+						         BCryptPasswordEncoder MD5, SHA1을 적용하여 128bit의 해쉬값 생성 
+						         StandardPasswordEncoder SHA-256를 적용하여 8bit의 solt를 적용해 1024번 암호화를 반복하여 
+						                                 128bit 해쉬값 생성
+						
+						         - SHA(미 국가안보국 설계된 암호화 알고리즘)
+						         - 해쉬알고리즘
+						           가변사이즈의 데이터를 작은 일정길이의 데이터 사이즈로 변환시켜 주는 알고리즘
+						           MD5, SHA1 등을 통해 128bit의 해쉬값 취득.
+		                  * password-encoder ref="bcryptoPWDEncoder" 선언시 customCryptoAuthenticationService 빈 클래스의
+		                    loadUserByUsername()에서 반환된 UserDetails의 로그인시 패스워드를 암호화하여 DB로부터 취득한
+		                    암호화된 패스워드를 비교하여 인증 처리.
+		                    
+		                  * password-encoder ref="customPWDEncoder"
+	-->
+<!-- <bean id="bcryptoPWDEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean> -->
+	<security:authentication-manager id="cryptoRoleAuth">
+		<security:authentication-provider user-service-ref="customCryptoAuthenticationService">
+			<security:password-encoder ref="customPWDEncoder"></security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

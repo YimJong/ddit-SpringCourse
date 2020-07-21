@@ -1,0 +1,5 @@
+package kr.or.ddit.fileitem.service;
+
+public class IFileItemServiceImpl {
+
+}

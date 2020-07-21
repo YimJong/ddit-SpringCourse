@@ -1,0 +1,28 @@
+package kr.or.ddit.globalexception;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+
+public class CustomExceptionResolver extends SimpleMappingExceptionResolver {
+
+	@Override
+	public ModelAndView resolveException(HttpServletRequest request,
+			 							 HttpServletResponse response, 
+			 							 Object handler, 
+			 							 Exception ex) {
+		// 클라이언트 서버 대상 요청 시 서버 내 경량화 된 쓰레드 생성(응답 전송 시 GC)
+		String currentThread = Thread.currentThread().getName();
+		
+		// Exception발생 메서드와 해당 메서드를 포함하는 클래스 명 추출
+		HandlerMethod handlerMethod = (HandlerMethod)handler;
+		String exceptionOccuredClass = handlerMethod.getBean().getClass().getName();
+		String exceptionOccuredMethod = handlerMethod.getMethod().getName();
+		
+		return super.resolveException(request, response, handler, ex);
+	}
+
+}

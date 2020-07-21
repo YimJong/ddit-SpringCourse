@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
+		destroy-method="close" p:driverClassName="#{jdbc['driver']}" p:url="#{jdbc['url']}"
+		p:username="#{jdbc['username']}" p:password="#{jdbc['password']}"
+		p:initialSize="10">
+	</bean>
+	
+	<!--
+		java JDBC : autoCommit(false)으로 트랜잭션 처리
+		            autoCommit(false)-commit()
+					                 -rollback()
+		iBatis JDBC : auto transaction으로 트랜잭션 처리.
+		              iBatis는 모든 쿼리를 트랜잭션 단위로 처리.
+					  로컬 트랜잭션 처리 startTransaction();
+					                     commitTransaction();
+										 endTransaction();
+	    SqlMapClientFactoryBean을통해 SqlMapClient 활용.
+	         1. 스프링 프레임웍 내 DataSource를 iBatis에 전달.
+	         2. 트랜잭션 기반의 iBatis 처리를 스프링 프레임웍으로 위임.
+	            2.1 useTransactionAwareDataSource : 스프링 프레임웍이 관리하는 트랜잭션 timeout 적용
+	            2.2 transactionConfigClass : ExternalTransactionConfig 인젝션으로 iBatis의 트랜잭션 처리를 외부로 위임 설정.
+	            2.3 transactionConfigProperties : iBatis의 AutoCommit 배제와 외부 위임 설정.
+	            
+	 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		p:configLocation="classpath:kr/or/ddit/ibatis/config/SqlMapConfig.xml"
+		p:dataSource-ref="dataSource"
+		p:useTransactionAwareDataSource="true"
+		p:transactionConfigClass="com.ibatis.sqlmap.engine.transaction.external.ExternalTransactionConfig">
+		<property name="transactionConfigProperties">
+			<props>
+				<prop key="DefaultAutoCommit">false</prop>
+				<prop key="SetAutoCommitAllowed">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 스프링 프레임웍에의해 관리되는 DataSource와 iBatis에 SqlMapClient 빌드시 스프링 프레임웍에 위임된 트랜잭션 처리를 관리하는 매니저 선언
+	     (commit과 rollback 처리를 TransactionManager가 수행.)
+	 -->
+	<bean id="transactionMgr" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+</beans>

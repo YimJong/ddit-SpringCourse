@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<!-- key : 익셉션 타입.
+	     value : 뷰페이지(InternalResourceViewResolver와 연동됨.)
+	 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="kr.or.ddit.common.CustomGenericException">error/error500</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

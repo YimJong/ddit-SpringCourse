@@ -19,6 +19,10 @@
 		<config>src/main/resources/kr/or/ddit/spring/config/application-views.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/config/servlet-tiles.xml</config>
 		<config>src/main/resources/kr/or/ddit/spring/config/application-file.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/config/servlet-interceptor.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/config/servlet-transaction.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-exception.xml</config>
+		<config>src/main/resources/kr/or/ddit/spring/config/application-quartz.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/secondDispatcher-servlet.xml</config>

@@ -1,0 +1,7 @@
+package kr.or.ddit.globalexception;
+
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+
+public class CustomExceptionResolver extends SimpleMappingExceptionResolver {
+
+}

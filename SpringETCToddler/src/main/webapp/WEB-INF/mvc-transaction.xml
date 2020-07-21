@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<!-- 1) 선언적 트랜잭션 처리
+	         tx:method  name - 트랜잭션이 적용될 메서드 표현식
+	                    propagation - 트랜잭션 전파 규칙
+	                                  * MANDATORY : weaving 전 트랜잭션이 존재해야하며, 존재하지 않을때 예외 발생.
+	                                               (부모 트랜잭션 내에서 실행되며 부모 트랜잭션이 없을 경우 예외가 발생됨.) 
+	                                  * REQUIRED  : 트랜잭션 상에서 실행되며, 기존 트랜잭션이 존재하지않으면, 신규 생성 후 실행.
+	                                               (부모 트랜잭션 내에서 실행하며 부모 트랜잭션이 없을 경우 새로운 트랜잭션을 생성.)
+	                                  * REQUIRED-NEW : 자신만의 트랜잭션을 신규 생성 후 실행.
+	                                               (부모 트랜잭션을 무시하고 무조건 새로운 트랜잭션이 생성되도록 함.) 
+	                                  * NESTED    : 기존 진행중인 트랜잭션 존재시, 중첩된 트랜잭션에서 실행되어야 함.
+	                                                              중첩된 트랜잭션은 기존 진행중인 트랜잭션과 별개로 commit or rollback 될수있음.
+	                                                              기존 진행중인 트랜잭션이 존재하지않으면 REQUIRED와 동일하게 실행.
+	                                  * NEVER     : 트랜잭션 상에서 실행될수없음.
+	                                               (non-transactionally로 실행되며 부모 트랜잭션이 존재한다면 예외가 발생.)
+	                                  * SUPPORTED : 기존 진행중인 트랜잭션이 존재하지 않을때 실행됨.
+	                                                              기존 진행중인 트랜잭션이 존재시 기존 트랜잭션 처리는 잠시 중단됨.
+	                                  * SUPPERTS  : 트랜잭션 존재시 해당 트랜잭션에서 실행되며, 트랜잭션이 존재하지 않아도 실행됨.
+	                                               (부모 트랜잭션 내에서 실행하며 부모 트랜잭션이 없을 경우 non-transactionally로 실행됨.)
+                                      * NOT_SUPPORTED : 트랜잭션을 필요로 하지 않음.
+                                                                        부모 트랜잭션 존재시 잠시 중단됨. 	                                               
+	                    isolation   - 트랜잭션 격리 레벨
+	                                  * DEFAULT   : 기본 격리 수준
+	                                  * READ_UNCOMMITED : 커밋되지않은 데이타 변경 사항을 타 트랜잭션에 제공.
+	                                  * READ_COMMITED   : 커밋된 데이타 변경 사항만을 타 트랜잭션에 제공.
+	                                  * REPEARTABLE_READ : 특정 트랜잭션이 조회한 레코드들을 대상으로, 기타 트랜잭션의 변경처리 횟수에 
+	                                                                        관계없이 특정 트랜잭션이 동일한 질의에서 항상 동일한 데이터를 조회
+	                                  * SEARIALIZABLE : ACID의 철저한 보장.
+	                                                                    해당 트랜잭션의 처리에 관련된 모든 테이블을 대상으로 락 처리가 되므로 비효율적.
+	                    read-only   - 읽기 전용 여부
+	                                            트랜잭션은 오직 읽기 전용의 질의만 처리
+	                    no-rollback-for - 트랜잭션 rollback 처리하지않을 예외 타입 정의.
+	                    rollback-for - 트랜잭션 rollback 처리 예외 타입 정의.
+	                                   * no-rollback-for과 rollback-for 동시 선언시 상위의 Exception이 적용.
+	                                   * 정확한 Exception 맵핑 규칙을 우선 함. 
+	                    timeout      - 트랜잭션 타입아웃. default -1. 초단위 설정.
+	                                              지정된 시간이 지나면 rollback 처리.
+	 -->		
+	<!-- 트랜잭션 처리를위한 타겟 메서드 표현식(적용 또는 비적용 타겟 선언) -->
+	<!-- aop를 활용한 선언적 트랜잭션 설정 -->
+<!-- 	<tx:advice id="memberTx" transaction-manager="transactionManager"> -->
+<!-- 		<tx:attributes> -->
+<!-- 			<tx:method name="get*" read-only="true" rollback-for="Exception" /> -->
+<!-- 			<tx:method name="insert*" rollback-for="Exception" /> -->
+<!-- 			<tx:method name="update*" rollback-for="Exception" /> -->
+<!-- 			<tx:method name="delete*" rollback-for="Exception" /> -->
+<!-- 		</tx:attributes> -->
+<!-- 	</tx:advice> -->
+	
+<!-- 	<aop:config>   -->
+<!-- 		<aop:pointcut id="memberPC" expression="execution(* *..member.sevice.*Impl.*(..))"/> -->
+<!-- 		<aop:advisor advice-ref="memberTx" pointcut-ref="memberPC"/> -->
+<!-- 	</aop:config> -->
+	
+	<!-- 2) 어노테이션 기반 트랜잭션 처리. @Transactional 메서드 상단 설정으로 처리.
+			proxy-target-class="false" : @Transactional이 선언된 메서드를 포함하는 Service Layer가
+			                             Interface를 Implements한 구현체일때 프록시 필요없음.
+			proxy-target-class="true" : @Transactional이 선언된 메서드를 포함하는 Service Layer가
+			                             Interface를 구현체가 아닌 pojo 타입일때 프록시가 존재하지 않으므로 선언 및
+			                             cglib 라이브러리 추가.
+	 -->
+    <!-- 어노테이션(@Transactional)을 활용한 트랜잭션 설정(적용 또는 비적용 타겟 선언).
+	      proxy-target-class="true" : proxy pattern을 적용하지 않은(interface 구현 클래스가 아닌) 빈에서의 
+	                                                 트랜잭션 처리시 선언
+	 -->
+	<tx:annotation-driven transaction-manager="transactionMgr"/>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

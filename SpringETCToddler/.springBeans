@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.6.1.201408250730-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/main/resources/spring/application-config.xml</config>
+		<config>src/main/resources/spring/application-quartz.xml</config>
+		<config>src/main/resources/spring/application-task.xml</config>
+		<config>src/main/resources/spring/application-exception.xml</config>
+		<config>src/main/resources/spring/application-batch.xml</config>
+		<config>src/main/webapp/WEB-INF/mvc-transaction.xml</config>
+		<config>src/main/resources/spring/application-security.xml</config>
+	</configs>
+	<autoconfigs>
+		<config>src/main/resources/spring/application-viewResolver.xml</config>
+		<config>src/main/resources/spring/application-props.xml</config>
+		<config>src/main/resources/spring/application-file.xml</config>
+		<config>src/main/webapp/WEB-INF/mvc-config.xml</config>
+		<config>src/main/resources/spring/application-ibatis.xml</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

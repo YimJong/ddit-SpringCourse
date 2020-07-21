@@ -7,9 +7,9 @@ import kr.or.ddit.vo.FileItemVO;
 
 public interface IFileItemService {
 	
-	public void insertFileItem(List<FileItemVO> fileitemList);
+	public void insertFileItem(List<FileItemVO> fileitemList) throws Exception;
 	
-	public FileItemVO fileitemInfo(Map<String, String> params);
+	public FileItemVO fileitemInfo(Map<String, String> params) throws Exception;
 	
 	
 }

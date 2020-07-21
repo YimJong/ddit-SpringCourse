@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<util:properties id="exceptionMappings">
+		<prop key="NullPointException">error/error500</prop>
+		<prop key="RuntimeException"></prop>
+		<prop key="org.springframework.dao.DataAccessException">error/error500</prop>
+		<prop key="org.springframework.dao.TransactionException">error/error500</prop>
+		<prop key="org.springframework.dao.HttpSessionRequiredException">error/error500</prop>
+	</util:properties>
+	
+	<bean class="kr.or.ddit.globalexception.CustomExceptionResolver"></bean>
+</beans>
