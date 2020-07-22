@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.aop.Loggable;
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.vo.MemberVO;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ public class JoinController {
 	private IMemberService service;
 	@Autowired
 	private MessageSourceAccessor accessor;
+	/*@Loggable
+	private Logger logger;*/
 	
 	@RequestMapping("loginForm")
 	public void loginForm(HttpServletRequest request) {
@@ -41,6 +45,8 @@ public class JoinController {
 		//return "user/join/loginForm";
 		
 		// RedirectAttribute를 활용해 전송되는 값 취득
+	
+		
 		Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
 		if(paramMap != null) {
 			String message = (String) paramMap.get("message");

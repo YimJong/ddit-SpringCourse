@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.context.ApplicationContextAware"/>
-<fullyQualifiedTypeName name="kr.or.ddit.freeboard.dao.IFreeBoardDao"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
-<fullyQualifiedTypeName name="javax.print.attribute.HashAttributeSet"/>
-<fullyQualifiedTypeName name="javax.servlet.ServletRequest"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="kr.or.ddit.member.service.IMemberService"/>
-<fullyQualifiedTypeName name="com.lowagie.text.List"/>
-<fullyQualifiedTypeName name="org.springframework.ui.ExtendedModelMap"/>
-<fullyQualifiedTypeName name="org.springframework.ui.ModelMap"/>
 <fullyQualifiedTypeName name="org.springframework.beans.propertyeditors.URLEditor"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Required"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
@@ -29,7 +16,6 @@
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="kr.or.ddit.utils.RolePaginationUtil"/>
-<fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="org.springframework.context.support.MessageSourceAccessor"/>
 <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
 <fullyQualifiedTypeName name="kr.or.ddit.vo.MemberVO"/>
@@ -45,10 +31,33 @@
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
 <fullyQualifiedTypeName name="org.springframework.web.servlet.view.AbstractView"/>
 <fullyQualifiedTypeName name="kr.or.ddit.vo.FileItemVO"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CookieValue"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="org.apache.commons.lang3.StringUtils"/>
+<fullyQualifiedTypeName name="org.springframework.web.servlet.handler.HandlerInterceptorAdapter"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="org.springframework.web.method.HandlerMethod"/>
+<fullyQualifiedTypeName name="com.ibatis.common.jdbc.SimpleDataSource"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.DataFormat"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.lang.annotation.Target"/>
+<fullyQualifiedTypeName name="java.lang.annotation.ElementType"/>
+<fullyQualifiedTypeName name="java.lang.annotation.Retention"/>
+<fullyQualifiedTypeName name="java.lang.annotation.RetentionPolicy"/>
+<fullyQualifiedTypeName name="org.springframework.util.ReflectionUtils.FieldCallback"/>
+<fullyQualifiedTypeName name="org.springframework.util.ReflectionUtils"/>
+<fullyQualifiedTypeName name="org.apache.log4j.spi.LoggerFactory"/>
+<fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+<fullyQualifiedTypeName name="kr.or.ddit.aop.Loggable"/>
+<fullyQualifiedTypeName name="org.slf4j.Logger"/>
+<fullyQualifiedTypeName name="org.aspectj.lang.JoinPoint"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="org.aspectj.lang.ProceedingJoinPoint"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
 </qualifiedTypeNameHistroy>

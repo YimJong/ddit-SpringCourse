@@ -1,0 +1,12 @@
+package kr.or.ddit.aop;
+
+import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
+
+@Component("logPrintClass")
+public class LogPrintAspectClass {
+	@Loggable
+	public static Logger logger;
+	
+	// 메서드(joinpoint), 메서드들(pointcut) 대상 주입 될 공통 코드(aspect)의 실행(weaving)
+}

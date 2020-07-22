@@ -1,0 +1,52 @@
+package kr.or.ddit.aop;
+
+import org.aspectj.lang.JoinPoint;
+import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
+
+@Component("logPrintClass")
+public class LogPrintAspectClass {
+	@Loggable
+	public static Logger logger;
+	
+	// 메서드(joinpoint), 메서드들(pointcut) 대상 호출 전(advice) 주입 될 공통 코드(aspect)의 실행(weaving)
+	public void theWholeJoinpointCallBefore(JoinPoint joinPoint) {
+		// 해당 메서드(joinpoint)가 포함된 빈 클래스 정보
+		String beanClassName = joinPoint.getTarget().getClass().getName(); // joinpoint가 포함된 빈 클래스 네임을 취득
+		String beanMethodName = joinPoint.getSignature().getName(); // 메소드 명 취득
+		
+		logger.debug("target Bean Class : {} | joinpoint : {}가 호출되었습니다.", beanClassName, beanMethodName);
+	}
+	
+	
+	
+	// 메서드(joinpoint), 메서드들(pointcut) 대상 종료 후(advice) 주입 될 공통 코드(aspect)의 실행(weaving)
+	public void theWholeJoinpointCallAfter(JoinPoint joinPoint) {
+		// 해당 메서드(joinpoint)가 포함된 빈 클래스 정보
+		String beanClassName = joinPoint.getTarget().getClass().getName(); // joinpoint가 포함된 빈 클래스 네임을 취득
+		String beanMethodName = joinPoint.getSignature().getName(); // 메소드 명 취득
+		
+		logger.debug("target Bean Class : {} | joinpoint : {}가 종료되었습니다.", beanClassName, beanMethodName);
+	}
+	
+	
+	
+	// 메서드(joinpoint), 메서드들(pointcut) 대상 호출 및 에러 발생 후(advice) 주입 될 공통 코드(aspect)의 실행(weaving)
+	public void theWholeJoinpointCallThrowing(JoinPoint joinPoint, Exception ex) {
+		// 해당 메서드(joinpoint)가 포함된 빈 클래스 정보
+		String beanClassName = joinPoint.getTarget().getClass().getName(); // joinpoint가 포함된 빈 클래스 네임을 취득
+		String beanMethodName = joinPoint.getSignature().getName(); // 메소드 명 취득
+		
+		logger.debug("target Bean Class : {} | joinpoint : {}가 호출 후 {} 에러가 발생 되었습니다.", beanClassName, beanMethodName, ex.getMessage());
+	}
+	
+	
+	// 메서드(joinpoint), 메서드들(pointcut) 대상 호출 전과 종료 후(advice) 주입 될 공통 코드(aspect)의 실행(weaving)
+		public void theWholeJoinpointCallAround(JoinPoint joinPoint) {
+			// 해당 메서드(joinpoint)가 포함된 빈 클래스 정보
+			String beanClassName = joinPoint.getTarget().getClass().getName(); // joinpoint가 포함된 빈 클래스 네임을 취득
+			String beanMethodName = joinPoint.getSignature().getName(); // 메소드 명 취득
+			
+			logger.debug("target Bean Class : {} | joinpoint : {}가 종료되었습니다.", beanClassName, beanMethodName);
+		}
+}

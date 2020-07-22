@@ -1,0 +1,7 @@
+package snippet;
+
+public class Snippet {
+	<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+}
+

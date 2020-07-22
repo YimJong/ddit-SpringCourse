@@ -114,4 +114,16 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 
+
+	<!-- 로그백 이용 상수 선언 -->
+	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>classpath:kr/or/ddit/logback/config/logback.xml</param-value>
+	</context-param>
+	
+	<!-- 로그백 초기화 자원 -->
+	<!-- 상수에 접근하여 Value 설정파일에 접근하여 설정파일을 기초로 초기화 -->
+	<listener>
+		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
 </web-app>

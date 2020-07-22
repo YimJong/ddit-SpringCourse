@@ -1,0 +1,60 @@
+package kr.or.ddit.aop;
+
+import java.lang.reflect.Field;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.ReflectionUtils.FieldCallback;
+
+@Component
+public class LoggerInjector implements BeanPostProcessor {
+
+	@Override									// 등록이 완료된 빈                                     빈 이름
+	public Object postProcessAfterInitialization(Object registedBeanOBJ, String registedBeanName)
+			throws BeansException {
+		// 루트 컨텍스트 또는 서블릿 컨텍스트 생성하기 위해 활용되는 각각의 설정파일 내 선언된 
+		// 빈의 인스턴스화 및 빈 등록이 완료된 직후 콜백되는 메서드 (전체 설정 파일 내 빈 선언된 클래스 각각의 빈 등록 시 마다 콜백됨.)
+		// return null; => 빈 등록 취소
+		
+		return registedBeanOBJ;
+	}
+
+	
+	
+	@Override									        // 등록 할 빈
+	public Object postProcessBeforeInitialization(final Object beforeRegistBeanOBJ, String beforeRegistBeanName)
+			throws BeansException {
+		
+		// 루트 컨텍스트 또는 서블릿 컨텍스트 생성하기 위해 활용되는 각각의 설정파일 내 선언된 
+		// 빈의 인스턴스화 및 빈 등록 직전 콜백되는 메서드 (전체 설정 파일 내 빈 선언된 클래스 각각의 빈 등록 시 마다 콜백됨.)
+		
+		// doWithFields() : 빈 등록 대상의 클래스 내 전체 전역변수를 리스트로 취득.
+		//					취득한 전역변수 각각에 접근 시 FieldCallback.doWith(금번에 접근하는 전역 변수)을 활용
+		ReflectionUtils.doWithFields(beforeRegistBeanOBJ.getClass(), new FieldCallback() {
+			@Override
+			public void doWith(Field field) throws IllegalArgumentException,
+					IllegalAccessException {
+				// 해당 전역변수 상단에 @Loggable 선언 여부 파악
+				// private 접근 지정자가 선언된 전역변수 대상 외부 접근 허용
+				ReflectionUtils.makeAccessible(field);
+				
+				// 해당 전역변수 상단 @Loggable이 선언되어 있다면 : Not Null
+				// 해당 전역변수 상단 @Loggable이 선언되어 있지 않다면 : Null
+				// slf4j Logger 사용함.
+				if(field.getAnnotation(Loggable.class) != null) {
+					// 전역 변수에 로거 인스턴스를 주입함.
+					Logger logger = LoggerFactory.getLogger(beforeRegistBeanOBJ.getClass());
+					         // 이번에 빈 으로 등록 될 @Logger 변수를 포함 하는 빈.
+					field.set(beforeRegistBeanOBJ ,logger);
+				}
+			}
+		});
+		
+		// return null; => 빈 등록 취소
+		return beforeRegistBeanOBJ;
+	}
+}

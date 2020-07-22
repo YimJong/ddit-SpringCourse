@@ -23,6 +23,7 @@
 		<config>src/main/webapp/WEB-INF/spring/config/servlet-transaction.xml</config>
 		<config>src/main/resources/kr/or/ddit/spring/config/application-exception.xml</config>
 		<config>src/main/resources/kr/or/ddit/spring/config/application-quartz.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/config/servlet-aop.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/secondDispatcher-servlet.xml</config>

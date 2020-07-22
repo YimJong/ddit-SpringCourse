@@ -1,0 +1,24 @@
+package kr.or.ddit.aop;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+
+public class LoggerInjector implements BeanPostProcessor {
+
+	@Override									// 등록이 완료된 빈                                     빈 이름
+	public Object postProcessAfterInitialization(Object registedBeanOBJ, String registedBeanName)
+			throws BeansException {
+		// 루트 컨텍스트 또는 서블릿 컨텍스트 생성하기 위해 활용되는 각각의 설정파일 내 선언된 
+		// 빈의 인스턴스화 및 빈 등록이 완료된 직후 콜백되는 메서드 (전체 설정 파일 내 빈 선언된 클래스 각각의 빈 등록 시 마다 콜백됨.)
+		// return null; => 빈 등록 취소
+		
+		return registedBeanOBJ;
+	}
+
+	@Override
+	public Object postProcessBeforeInitialization(Object beforeRegistBeanOBJ, String beforeRegistBeanName)
+			throws BeansException {
+		return null;
+	}
+
+}

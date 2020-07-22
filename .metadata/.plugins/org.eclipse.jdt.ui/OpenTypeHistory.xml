@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=SpringToddler/D:\/C_Lib\/mavenLocalRepo\/org\/springframework\/spring-webmvc\/3.2.9.RELEASE\/spring-webmvc-3.2.9.RELEASE.jar&lt;org.springframework.web.servlet.handler(SimpleMappingExceptionResolver.class[SimpleMappingExceptionResolver" modifiers="33" timestamp="1512364868000"/>
+<typeInfo handle="=SpringToddler/D:\/C_Lib\/mavenLocalRepo\/org\/springframework\/spring-context-support\/3.2.9.RELEASE\/spring-context-support-3.2.9.RELEASE.jar&lt;org.springframework.scheduling.quartz(QuartzJobBean.class[QuartzJobBean" modifiers="1057" timestamp="1512364870000"/>
+<typeInfo handle="=SpringToddler/D:\/C_Lib\/mavenLocalRepo\/org\/springframework\/spring-beans\/3.2.9.RELEASE\/spring-beans-3.2.9.RELEASE.jar&lt;org.springframework.beans.factory.config(BeanPostProcessor.class[BeanPostProcessor" modifiers="1537" timestamp="1512364866000"/>
+</typeInfoHistroy>

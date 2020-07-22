@@ -24,14 +24,11 @@ public class IFileItemDaoImpl implements IFileItemDao{
 			//          => client.endTransaction();
 			//  Rollback : startTransaction() => 쿼리 질의(일부 성공 후 에러)
 			//          => endTransaction();
-			client.startTransaction();
 			for(FileItemVO fileItemInfo : fileitemList) {
 				client.insert("fileitem.insertFileItem", fileItemInfo);
 			}
 			
-			client.commitTransaction(); 
 		} finally {
-			client.endTransaction();   // commitTransaction() 실행이 되지 않았을 시 롤백 됨.
 		}
 	}
 
