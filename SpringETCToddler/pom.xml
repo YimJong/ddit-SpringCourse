@@ -28,7 +28,7 @@
 		<spring-framework.version>3.2.3.RELEASE</spring-framework.version>
 
 		<!-- Spring Batch -->
-		<spring-framework-batch.version>2.2.7.RELEASE</spring-framework-batch.version>
+		<spring-framework-batch.version>4.0.0.RELEASE</spring-framework-batch.version>
 
 		<!-- Spring Security-->
 		<spring-framework-security.version>3.2.9.RELEASE</spring-framework-security.version>
