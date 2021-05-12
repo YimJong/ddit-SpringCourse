@@ -31,7 +31,7 @@
 		<spring-framework-batch.version>2.2.7.RELEASE</spring-framework-batch.version>
 
 		<!-- Spring Security-->
-		<spring-framework-security.version>3.2.9.RELEASE</spring-framework-security.version>
+		<spring-framework-security.version>5.2.10.RELEASE</spring-framework-security.version>
 
 		<!-- Hibernate / JPA -->
 		<hibernate.version>4.2.1.Final</hibernate.version>
