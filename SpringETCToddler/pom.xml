@@ -25,7 +25,7 @@
 		<oracle.version>11.2.0.3</oracle.version>
 
 		<!-- Spring -->
-		<spring-framework.version>3.2.3.RELEASE</spring-framework.version>
+		<spring-framework.version>5.3.18</spring-framework.version>
 
 		<!-- Spring Batch -->
 		<spring-framework-batch.version>2.2.7.RELEASE</spring-framework-batch.version>
